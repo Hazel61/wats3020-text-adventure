@@ -9,45 +9,28 @@ let currentPage = null;
 // Fill in the blanks below to complete each TODO task.                       //
 ////////////////////////////////////////////////////////////////////////////////
 
-
+// Prompt for player's name
 
 playerName = window.prompt("Please enter your name: ", "Shannon");
 
-
-
-// TODO: Create a function called `getCurrentPage()`. It should accept one
-// parameter, which is the `slug` for the current page. This function will fetch
-// the current page and return a page object using the `slug` value for a key.
+// Find current page needed, return page object
 function getCurrentPage(slug) {
     return storyData[slug];
 }
-
-
-// TODO: Create a function called `recordChoice()` that will accept a `slug`
-// parameter and add it to the `choiceList` Array (probably using `push()`).
-
+// Record current page choice.
 function recordChoice(slug){
     choiceList.push(slug);
 }
 
-// TODO: Create a function called `undoChoice()` that will remove the last
-// `slug` in the `choiceList` Array and then will return the last `slug` in the
-// `choiceList` Array.
+// Allow user to move back one page
 function undoChoice() {
     choiceList.pop();
+   if (choiceList.length === 0) {
+        choiceList.push('p1');
+   }
     return choiceList[choiceList.length-1];
 }
-
-
-// TODO: Create a function called `changePage()` that accepts a parameter called
-// `slug` and which handles "turning the page" in three steps:
-//  1. It should call the `recordChoice()` function (and give it the `slug` as
-//     a parameter.
-//  2. It should set the `currentPage` value by calling the `getCurrentPage()`
-//     function (and give it the `slug` as a parameter).
-//  3. It should invoke the `updatePage()` function (and give it the
-//     `currentPage` object as a parameter).
-
+// Change page to represent page chosen
 function changePage(slug) {
     recordChoice(slug);
     currentPage = getCurrentPage(slug);
@@ -72,10 +55,14 @@ function changePage(slug) {
 var storyData = {
     title: "The Crow and the Fox",
     p1: {
+        // image: {
+        //
+        // },
+
         text: `You are a crow named ${playerName}. You are flying high above the
                 countryside. You see a farm off to the West, and your home forest
                 off to the East.`,
-        
+
         choices: [
             {
                 text: `Fly over the farm to the West.`,
@@ -239,10 +226,12 @@ let title = document.querySelector('#story-title');
 title.innerHTML = storyData.title;
 
 let pageContent = document.querySelector('#story-text');
+// let pageImage = document.querySelector('#story-image');
 let choicesUL = document.querySelector('#choices');
 
 function updatePage(page) {
     pageContent.innerHTML = page.text;
+    // pageImage.src = page.image.src;
     choicesUL.innerHTML = '';
     for (choice of page.choices){
         let newLI = document.createElement('li');
