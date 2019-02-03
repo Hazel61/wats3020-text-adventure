@@ -9,25 +9,34 @@ let currentPage = null;
 // Fill in the blanks below to complete each TODO task.                       //
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO: Prompt the user for their name. Store the name in the variable `playerName`.
+
+
+playerName = window.prompt("Please enter your name: ", "Shannon");
 
 
 
 // TODO: Create a function called `getCurrentPage()`. It should accept one
 // parameter, which is the `slug` for the current page. This function will fetch
 // the current page and return a page object using the `slug` value for a key.
-
+function getCurrentPage(slug) {
+    return storyData[slug];
+}
 
 
 // TODO: Create a function called `recordChoice()` that will accept a `slug`
 // parameter and add it to the `choiceList` Array (probably using `push()`).
 
-
+function recordChoice(slug){
+    choiceList.push(slug);
+}
 
 // TODO: Create a function called `undoChoice()` that will remove the last
 // `slug` in the `choiceList` Array and then will return the last `slug` in the
 // `choiceList` Array.
-
+function undoChoice() {
+    choiceList.pop();
+    return choiceList[choiceList.length-1];
+}
 
 
 // TODO: Create a function called `changePage()` that accepts a parameter called
@@ -39,7 +48,11 @@ let currentPage = null;
 //  3. It should invoke the `updatePage()` function (and give it the
 //     `currentPage` object as a parameter).
 
-
+function changePage(slug) {
+    recordChoice(slug);
+    currentPage = getCurrentPage(slug);
+    updatePage(currentPage);
+}
 
 ///////////////////////////////////////////////////
 //////// Story Data //////////////////////////////
@@ -62,6 +75,7 @@ var storyData = {
         text: `You are a crow named ${playerName}. You are flying high above the
                 countryside. You see a farm off to the West, and your home forest
                 off to the East.`,
+        
         choices: [
             {
                 text: `Fly over the farm to the West.`,
