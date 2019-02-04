@@ -41,10 +41,16 @@ body {
     margin: 1rem auto;
     padding: 3rem 2rem;
     background: #fafafa;
-    color: #666;
+    color: black;
     font-family: Helvetica, Arial, sans-serif;
     border: 4px double #666;
+    box-shadow: 5px 10px lightslategray;
+    background-color: cornflowerblue;
 }
 html {
     background: #e8e8e8 url('../images/vertical-waves.png') repeat;
+}
+.image-style img {
+    border: 4px double #666;
+    box-shadow: 2px 5px lightgrey;
 }

@@ -3,12 +3,6 @@ let playerName = "";
 let choiceList = [];
 let currentPage = null;
 
-///////////////////////////////////////////////////
-//////// TODOs ///////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// Fill in the blanks below to complete each TODO task.                       //
-////////////////////////////////////////////////////////////////////////////////
-
 // Prompt for player's name
 
 playerName = window.prompt("Please enter your name: ", "Shannon");
@@ -55,9 +49,10 @@ function changePage(slug) {
 var storyData = {
     title: "The Crow and the Fox",
     p1: {
-        // image: {
-        //
-        // },
+        image: {
+            url: 'crow-with-key.png',
+            alttext: `Picture of a crow with a key in its beak.`
+        },
 
         text: `You are a crow named ${playerName}. You are flying high above the
                 countryside. You see a farm off to the West, and your home forest
@@ -74,6 +69,11 @@ var storyData = {
         ]
     },
     homeEnd : {
+        image: {
+            url: 'cup-of-tea.png',
+            alttext: `Picture of a cup of tea.`
+        },
+
         text: `You return home to your comfy roost in the forest canopy and
                 enjoy a hot cup of tea!
                 <br><br>
@@ -86,6 +86,10 @@ var storyData = {
         ]
     },
     p2 : {
+        image: {
+            url: 'piece-of-cheese.png',
+            alttext: `Picture of cheese.`
+        },
         text: `You fly over the Farm and see a piece of cheese lying on the
                 picnic table. There are no people around that you can see. The
                 cheese looks very tasty, but you are worried there might be a
@@ -101,6 +105,10 @@ var storyData = {
         ]
     },
     p3 : {
+        image: {
+            url: 'black-cat.jpeg',
+            alttext: `Picture of a cat.`
+        },
         text: `You swoop down and pluck the cheese from the table. Just as you
                 grab hold of the cheese, the farmer's cat leaps onto the table
                 ahead of you!`,
@@ -115,6 +123,10 @@ var storyData = {
         ]
     },
     basketEnd : {
+        image: {
+            url: 'crow-with-key.png',
+            alttext: `Picture of a crow with a key in its beak.`
+        },
         text: `You fly directly into a picnic basket, which slams shut behind you.
                 You are stuck until some kind human comes to open the basket.
                 But at least the cat didn't eat you!
@@ -128,6 +140,10 @@ var storyData = {
         ]
     },
     p4 : {
+        image: {
+            url: 'oak-tree.png',
+            alttext: `Picture of an oak tree.`
+        },
         text: `You zoom towards the cat, who is surprised by the direct approach
                 and leaps off the table. You pull up sharply and make it over the
                 big oak tree to a safe cruising altitude. The sun is shining,
@@ -141,6 +157,10 @@ var storyData = {
         ]
     },
     p5 : {
+        image: {
+            url: 'Fox.jpg',
+            alttext: `Picture of a fox.`
+        },
         text: `You find a secluded fence post in the middle of a large field
                 full of wildflowers. You decide this will be a wonderful place
                 to have a snack.
@@ -158,6 +178,10 @@ var storyData = {
         ]
     },
     shareCheese : {
+        image: {
+            url: 'blue-ribbon.jpeg',
+            alttext: `Picture of a blue ribbon.`
+        },
         text: `You hop down to the ground and Mr. Fox helps you break the cheese
                 in half. He is very grateful to you for sharing your cheese, and
                 he gives you a lovely ribbon for your nest.
@@ -171,6 +195,10 @@ var storyData = {
         ]
     },
     p6 : {
+        image: {
+            url: 'crow-singing.jpeg',
+            alttext: `Picture of a crow singing.`
+        },
         text: `Mr. Fox approaches and says, "Hello ${playerName}! It's been so
                 long since we've seen each other. I've missed hearing your
                 lovely singing voice. Won't you sing me a tune before I go?`,
@@ -185,6 +213,10 @@ var storyData = {
         ]
     },
     dropCheeseEnd : {
+        image: {
+            url: 'crow-singing.jpeg',
+            alttext: `Picture of a crow singing.`
+        },
         text: `You open your beak to sing a lovely song, and your cheese comes
                 tumbling out. Mr. Fox quickly snaps the cheese out of the air
                 as it falls and gobbles it up!
@@ -198,6 +230,10 @@ var storyData = {
         ]
     },
     p7 : {
+        image: {
+            url: 'crow-with-key.png',
+            alttext: `Picture of a crow with a key in its beak.`
+        },
         text: `You remain silent through all of Mr. Fox's flattery. In the end,
                 he knows you won't fall for his tricks, and he leaves you alone.
                 <br><br>
@@ -214,6 +250,8 @@ var storyData = {
     }
 };
 
+
+
 ///////////////////////////////////////////////////
 //////// Main Script /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -226,12 +264,17 @@ let title = document.querySelector('#story-title');
 title.innerHTML = storyData.title;
 
 let pageContent = document.querySelector('#story-text');
-// let pageImage = document.querySelector('#story-image');
+let pageImageParagraph = document.querySelector('#story-image-paragraph');
 let choicesUL = document.querySelector('#choices');
 
 function updatePage(page) {
     pageContent.innerHTML = page.text;
-    // pageImage.src = page.image.src;
+    pageImageParagraph.innerHTML = '';
+    if (page.image !== undefined && page.image !== null) {
+        let pageImage = document.createElement('img');
+        pageImage.src = `/wats3020-text-adventure/images/${page.image.url}`;
+        pageImageParagraph.appendChild(pageImage);
+    }
     choicesUL.innerHTML = '';
     for (choice of page.choices){
         let newLI = document.createElement('li');
@@ -251,6 +294,7 @@ function addEventListeners(){
         })
     }
 }
+
 
 let undo = document.querySelector('#undo');
 undo.addEventListener('click', function(e){
